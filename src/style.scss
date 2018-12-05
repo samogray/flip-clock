@@ -1,286 +1,235 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-
-@mixin up-shadow {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.1)), color-stop(100%, black));
-  background: linear, top, rgba(0, 0, 0, 0.1) 0%, black 100%;
-  background: linear, to bottom, rgba(0, 0, 0, 0.1) 0%, black 100%;
-}
-
-@mixin down-shadow {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, black), color-stop(100%, rgba(0, 0, 0, 0.1)));
-  background: linear, top, black 0%, rgba(0, 0, 0, 0.1) 100%;
-  background: linear, to bottom, black 0%, rgba(0, 0, 0, 0.1) 100%;
+:root {
+  --width: 132px;
+  --height: 180px;
 }
 
 .flip-clock-wrapper {
-  display: inline-block;
-
-  & > div {
-      display: inline-block;
-  }
-
-  & ul {
-      position: relative;
-      padding: 0px;
-      margin: 5px;
-      width: 60px;
-      height: 90px;
-      font-size: 80px;
-      font-weight: bold;
-      line-height: 87px;
-      border-radius: 6px;
-      background: #000;
-      display: inline-block;
-      vertical-align: top;
-      list-style: none; 
-
-      & li {
-          z-index: 1;
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          text-decoration: none !important;
-
-          & a {
-              display: block;
-              height: 100%;
-              perspective: 200px;
-              margin: 0 !important;
-              overflow: visible !important;
-              cursor: default !important; 
-
-              & div {
-                  z-index: 1;
-                  position: absolute;
-                  left: 0;
-                  width: 100%;
-                  height: 50%;
-                  font-size: 80px;
-                  overflow: hidden;
-              }
-          }
-
-          &:first-child {
-              z-index: 2; 
-          }
-      }
-  }
-
-  & a {
-      cursor: pointer;
-      text-decoration: none;
-      color: #ccc; 
-  }
-
-  & a:hover {
-      color: #fff;
-  }
-
-  .flip {   
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); 
-  }
-
-  .shadow {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-  }
-
-  .up {
-      transform-origin: 50% 100%;
-      top: 0; 
-
-      & .inn {
-          top: 0; 
-      }
-
-      &:after {
-          content: "";
-          position: absolute;
-          top: 44px;
-          left: 0;
-          z-index: 5;
-          width: 100%;
-          height: 3px;
-          background-color: #000;
-          background-color: rgba(0, 0, 0, 0.4); 
-      }
-  }
-
-  .down {
-      transform-origin: 50% 0;
-      bottom: 0; 
-
-      & .inn {
-          bottom: 0; 
-      }       
-  }
-
-  .inn {
-      position: absolute;
-      left: 0;
-      z-index: 1;
-      width: 100%;
-      height: 200%;
-      color: #ccc;
-      text-shadow: 0 1px 2px #000;
-      text-align: center;
-      background-color: #502d2d;
-      border-radius: 6px;
-      font-size: 70px; 
-  }
-
-  .flip-clock-active {
-      animation: asd 0.5s 0.5s linear both;
-      z-index: 5;
-
-      & .down {
-          z-index: 2;
-          animation: turn 0.5s 0.5s linear both; 
-
-          & .shadow {
-              @include down-shadow;
-              animation: hide 0.5s 0.2s linear both;
-          }
-      }
-
-      & .up { 
-        & .shadow {
-              @include up-shadow;
-              animation: hide 0.5s 0.3s linear both; 
-          }
-      } 
-  }
-
-  .flip-clock-before {
-      z-index: 3 !important;
-
-      & .up {
-          z-index: 2;
-          animation: turn2 0.5s linear both; 
-
-          & .shadow {
-              @include up-shadow;
-              animation: show 0.5s linear both; 
-          }
-      }
-      & .down {
-          & .shadow {
-              @include down-shadow;
-              animation: show 0.5s linear both; 
-          }
-      }
-
-  }
-
- 
-
-
-
-  @keyframes asd {
-      0% {
-        z-index: 2; }
-    
-      20% {
-        z-index: 4; }
-    
-      100% {
-        z-index: 4; } 
-  }
-
-  @keyframes turn {
-      0% {
-        transform: rotateX(90deg); 
-      }
-    
-      100% {
-        transform: rotateX(0deg); 
-      } 
-  }
-
-  @keyframes turn2 {
-      0% {
-        transform: rotateX(0deg); 
-      }
-    
-      100% {
-        transform: rotateX(-90deg); 
-      } 
-  }
-
-  @keyframes show {
-      0% {
-        opacity: 0; 
-      }
-    
-      100% {
-        opacity: 1; 
-      }
-  }
-
-  @keyframes hide {
-      0% {
-        opacity: 1; 
-      }
-    
-      100% {
-        opacity: 0; 
-      } 
-  }
-
-  .semicolon {
-      display: inline-block;
-      width: 10px;
-      height: 100%;
-      position: relative;
-      top: 50px;
-      transform: translate(0,-50%);
-      vertical-align: top;
-
-      & > span {
-          display: block;
-          width: 10px;
-          height: 10px;
-          background: #323434;
-          border-radius: 50%;
-          margin-bottom: 10px;
-
-          &:last-child {
-              margin-bottom: 0px;
-          }
-      }
-  }
-
-  & .title {
-      font-size: 28px;
-      font-weight: 500;
-      letter-spacing: 10px;
-      text-align: center;
-  }
-
+   display: flex;
 }
 
-.number {
+.container {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'SF Pro Text';
+
+  position: relative;
+  padding: 0px;
+  margin: 5px;
+  width: var(--width);
+  height: var(--height);
+  font-weight: bold;
+  border-radius: 6px;
+  background: #000;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.num {
+  z-index: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+
+  &:first-child {
+    z-index: 1;
+  }
+
+  &--before {
+    z-index: 2;
+
+    &:first-child {
+      z-index: 3;
+    }
+
+    .num__up {
+      z-index: 2;
+      animation: turnUp 0.5s linear both;
+    }
+
+    .num__shadow--up {
+      background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.1) 0%,
+        #000 100%
+      );
+      animation: show 0.5s linear both;
+    }
+
+    .num__shadow--down {
+      background-image: linear-gradient(
+        to bottom,
+        #000 0%,
+        rgba(0, 0, 0, 0.1) 100%
+      );
+      animation: show 0.5s linear both;
+    }
+  }
+
+  &--active {
+    animation: aindex 0.5s 0.5s linear both;
+    z-index: 5;
+
+    .num__down {
+      z-index: 2;
+      animation: turnDown 0.5s 0.5s linear both;
+    }
+
+    .num-shadow--up {
+      background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0%, rgba(0, 0, 0, 0.1)),
+        color-stop(100%, black)
+      );
+      animation: hide 0.5s 0.3s linear both;
+    }
+
+    .num-shadow--down {
+      background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0%, black),
+        color-stop(100%, rgba(0, 0, 0, 0.1))
+      );
+      animation: hide 0.5s 0.2s linear both;
+    }
+  }
+
+  &__wrapper {
     display: block;
     height: 100%;
-    perspective: 200px;
+    text-decoration: none;
+    color: #ccc;
+    perspective: 1000px;
     margin: 0;
     overflow: visible;
- }
+    cursor: default;
+  }
+
+  &__up,
+  &__down {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+  }
+
+  &__up {
+    top: 0;
+    transform-origin: 50% 100%;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 89px;
+      left: 0;
+      z-index: 2;
+      width: 100%;
+      height: 3px;
+      // transform: translatey(-50%);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &__down {
+    bottom: 0;
+    transform-origin: 50% 0;
+  }
+
+  &__shadow {
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 80px;
+    overflow: hidden;
+  }
+
+  &__number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 200%;
+    color: #ccc;
+    text-shadow: 0 1px 2px #000;
+    text-align: center;
+    background-color: #502d2d;
+    border-radius: 6px;
+    font-size: 183px;
+
+    &--up {
+      top: 0;
+    }
+
+    &--down {
+      bottom: 0;
+    }
+  }
+}
+
+@keyframes aindex {
+  0% {
+    z-index: 2;
+  }
+
+  20% {
+    z-index: 4;
+  }
+
+  100% {
+    z-index: 4;
+  }
+}
+
+@keyframes turnUp {
+  0% {
+    transform: rotateX(0deg);
+  }
+
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes turnDown {
+  0% {
+    transform: rotateX(90deg);
+  }
+
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

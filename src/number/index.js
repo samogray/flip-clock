@@ -1,26 +1,24 @@
 import React from 'react'
 import _ from 'lodash'
 
-const Number = ({type, num = 1}) => {
+const Number = ({type, num = 1, setRef, active}) => {
   return (
-    <ul className={type}>
+    <div className={`${type} container`}>
       {_.times(num, String).map(index => (
-        <li key={index} className="number">
-          <a className="link number__wrapper">
-            <div className="up number__up">
-              <div className="shadow number__shadow" />
-              <div className="inn number__inner">
-                {index}
-              </div>
-            </div>
-            <div className="down number__down">
-              <div className="shadow number__down" />
-              <div className="inn number__inner">{index}</div>
-            </div>
-          </a>
-        </li>
+        <div class={`num ${String(active) === index ? 'num--active' : ''}`}>
+        <div class="num__wrapper">
+          <div class="num__up">
+            <div class="num__shadow num__shadow--up"></div>
+            <div class="num__number num__number--up">{index}</div>
+          </div>
+          <div class="num__down">
+            <div class="num__shadow num__shadow--down"></div>
+            <div class="num__number num__number--down">{index}</div>
+          </div>
+        </div>
+      </div>
       ))}
-    </ul>
+    </div>
   )
 }
 
