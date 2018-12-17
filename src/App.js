@@ -5,85 +5,48 @@ import Hours from './hours'
 import './style.scss'
 
 export default class FilpClock extends React.Component {
-//  $$  (str) {
-//     return document.querySelectorAll(str)
-//   }
+  state = {}
 
-//   componentDidMount () {
-//     this.flip()
-//     console.log('this.secRef', this.secRef)
-//   }
+  componentDidMount() {
+    //console.log(this.getTimeDifference(new Date(2011, 0, 1)))
+    setInterval(() => console.log(this.getTimeDifference(new Date(2018, 11, 31))), 1000)
+  }
 
-//   flip () {
-//     setInterval(() => {
-//       this.secondsLastMove()
-//     }, 1000)
-//   }
+  getTimeDifference = (endtime) => {
+    const t = Date.parse(endtime) - Date.parse(new Date())
+    let seconds = Math.floor( (t/1000) % 60 )
+    let minutes = Math.floor( (t/1000/60) % 60 )
+    let hours = Math.floor( (t/(1000*60*60)) % 24 )
+    let days = Math.floor( t/(1000*60*60*24) )
+    this.setState({
+      total: t,
+      days,
+      hours,
+      minutes,
+      seconds
+    })
+  }
 
-//   hoursPredMove = (() => {
-//     return this.move('.hours-pre')
-//   })()
+  render() {
+    const {
+      hours,
+      minutes,
+      seconds
+    } = this.state
 
-//   hoursLastMove = (() => {
-//     return this.move('.hours-last', this.hoursPredMove)
-//   })()
-
-//   minutesPredMove = (() => {
-//     return this.move('.minutes-pre', this.hoursLastMove)
-//   })()
-
-//   minutesLastMove = (() => {
-//     return this.move('.minutes-last', this.minutesPredMove)
-//   })()
-
-//   secondsPredMove = (() => {
-//     return this.move('.seconds-pre', this.minutesLastMove)
-//   })()
-
-//   secondsLastMove = (() => {
-//     return this.move('.seconds-last', this.secondsPredMove)
-//   })()
-
-//   setRef =(input)=> {
-//     this.secRef = input;
-//   }
-
-//   //ref = React.createRef();
-
-//   move (className, fn) {
-//     let num = 0
-//     let ele = null
-//     return () => {
-//       const element = ele || (ele = this.$$(`${className} > li`))
-
-//       this.clearFilpClock(className)
-//       element[num].className = 'flip-clock-before'
-
-//       if (num === element.length - 1) {
-//         element[0].className = 'flip-clock-active'
-//         num = 0
-//         fn && fn()
-//         return
-//       }
-
-//       element[num + 1].className = 'flip-clock-active'
-//       num = num + 1
-//     }
-//   }
-
-//   clearFilpClock (str) {
-//     this.$$(`${str} li`).forEach((item) => {
-//       item.className = ''
-//     })
-//   }
-
-  render () {
-    console.log('ref', this.setRef)
+    console.log(this.state)
     return (
+      <div>
       <div className="flip-clock-wrapper">
-        <Hours hr={13} />
-        <Minutes min={15} />
-        <Seconds setRef={this.setRef} sec={24}/>
+        <Hours hr={hours} />
+        <Minutes min={minutes} />
+        <Seconds sec={seconds} />
+      </div>
+      <div>
+        <span>{hours}:</span>
+        <span>{minutes}:</span>
+        <span>{seconds}</span>
+      </div>
       </div>
     )
   }
