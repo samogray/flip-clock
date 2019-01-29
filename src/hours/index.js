@@ -6,8 +6,8 @@ const Hours  = ({hr}) => (
         <div className="title">
           HR
         </div>
-        <Num type='hours-pre' num='2' active={String(hr)[0]} />
-        <Num type='hours-last' num='4' active={String(hr)[1]} />
+        <Num type='hours-pre' num='2' active={hr < 10 ? '0' : String(hr)[0]} />
+        <Num type='hours-last' num='4' active={hr < 10 ? String(hr)[0] : String(hr)[1]} />
         <div className="semicolon">
           <span></span>
           <span></span>

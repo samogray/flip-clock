@@ -8,7 +8,6 @@ export default class FilpClock extends React.Component {
   state = {}
 
   componentDidMount() {
-    //console.log(this.getTimeDifference(new Date(2011, 0, 1)))
     setInterval(() => console.log(this.getTimeDifference(new Date(2018, 11, 31))), 1000)
   }
 
@@ -21,9 +20,9 @@ export default class FilpClock extends React.Component {
     this.setState({
       total: t,
       days,
-      hours,
-      minutes,
-      seconds
+      hours: hours * -1,
+      minutes: minutes * -1,
+      seconds: seconds * -1,
     })
   }
 
@@ -34,7 +33,6 @@ export default class FilpClock extends React.Component {
       seconds
     } = this.state
 
-    console.log(this.state)
     return (
       <div>
       <div className="flip-clock-wrapper">
