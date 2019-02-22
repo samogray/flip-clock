@@ -2,16 +2,14 @@ import React from 'react'
 import classNames from 'classnames'
 import _ from 'lodash'
 
-const Number = ({type, num = 1, last, active}) =>  {
-  console.log('active', active)
+const Number = ({nodes, active}) =>  {
   return (
-    <div className={`${type} container`}>
-      {_.times(num, String).map(index => console.log('index', index) || (
+    <div className={`container`}>
+      {_.times(nodes).map(index => nodes === 4 && console.log({active, index}) || (
         <div className={classNames(
           'num',
-          String(active) === index && 'num--active',
-          (String(active - 1) === index) && 'num--before',
-          last && index == 9 && 'num--before'
+          active === index && 'num--active',
+          (((active || nodes) - 1) === index) && 'num--before',
         )}>
         <div className="num__wrapper">
           <div className="num__up">

@@ -2,13 +2,14 @@ import React from 'react'
 import Seconds from './seconds'
 import Minutes from './minutes'
 import Hours from './hours'
+import TimePart from './time-part'
 import './style.scss'
 
 export default class FilpClock extends React.Component {
   state = {}
 
   componentDidMount() {
-    setInterval(() => console.log(this.getTimeDifference(new Date(2018, 11, 31))), 1000)
+    this.time = setInterval( this.changeTime, 1000)
   }
 
   getTimeDifference = (endtime) => {
@@ -26,6 +27,13 @@ export default class FilpClock extends React.Component {
     })
   }
 
+  changeTime = () => this.getTimeDifference(new Date(2018, 11, 31))
+
+  componentWillUnmount() {
+    clearInterval(this.time)
+  }
+  
+
   render() {
     const {
       hours,
@@ -36,9 +44,9 @@ export default class FilpClock extends React.Component {
     return (
       <div>
       <div className="flip-clock-wrapper">
-        <Hours hr={hours} />
-        <Minutes min={minutes} />
-        <Seconds sec={seconds} />
+        <TimePart value={hours} type="hr" />
+        <TimePart value={minutes} type="min" />
+        <TimePart value={seconds} type="sec" />
       </div>
       <div>
         <span>{hours}:</span>
