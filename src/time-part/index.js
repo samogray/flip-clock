@@ -1,38 +1,27 @@
 import React from 'react'
-import NumEl from '../number'
+import Number from '../number'
 
-const getLastActiveValue = (val) => {
-  if (val < 10) {
-    return Number(String(val)[0]) 
+const splitNumber = (value) => {
+  if (value < 10) {
+    return {
+      first: 0,
+      last: +String(value)[0],
+    }
   }
-  return Number(String(val)[1])
-}
-
-const getFirstActiveValue = (val) => {
-  if (val < 10) {
-    return 0
+  return {
+    first: +String(value)[0],
+    last: +String(value)[1],
   }
-  return Number(String(val)[0])
 }
 
-const mapTypeTime = {
-  hr: {first: 2, last: 5},
-  min: {first: 6, last: 10} ,
-  sec: {first: 6, last: 10},
+const TimePart = ({value, maxFirst, maxLast}) => {
+  const {first, last} = splitNumber(value)
+  return (
+    <div>
+      <Number active={first} max={maxFirst} />
+      <Number active={last} max={maxLast} />
+    </div>
+  )
 }
-
-const TimePart = ({value, type}) =>  console.log({value, type}) || (
-  <div>
-    <div className="title">{type}</div>
-    <NumEl
-      nodes={mapTypeTime[type].first}
-      active={getFirstActiveValue(value)}
-    />
-    <NumEl
-      nodes={mapTypeTime[type].last}
-      active={getLastActiveValue(value)}
-      />
-  </div>
-)
 
 export default TimePart
