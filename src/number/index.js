@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 import classNames from 'classnames'
 
 class Item extends React.PureComponent {
@@ -38,4 +38,4 @@ const Number = ({max, active}) =>  {
   )
 }
 
-export default Number
+export default memo(Number)
